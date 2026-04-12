@@ -11,7 +11,6 @@ ENV/
 .env
 
 # Datasets & Databases
-*.db
 *.sqlite
 *.sqlite3
 
