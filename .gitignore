@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# External packages & Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# Datasets & Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Report generated files & LaTeX build files
+*.aux
+*.log
+*.fls
+*.out
+*.fdb_latexmk
+*.synctex.gz
+*.toc
+*.lof
+*.bbl
+*.blg
+*.bib
+*.xml
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db

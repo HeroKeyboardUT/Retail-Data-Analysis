@@ -1,0 +1,63 @@
+{
+  "raw_rows": 541909,
+  "after_dedup": 536641,
+  "duplicates_removed": 5268,
+  "rows_after_customer_filter": 401604,
+  "rows_after_cancellation_filter": 392732,
+  "clean_rows": 392692,
+  "removed_missing_customerid": 135037,
+  "removed_cancelled_invoices": 8872,
+  "removed_invalid_quantity_or_price": 40,
+  "unique_customers": 4338,
+  "unique_products": 3665,
+  "unique_invoices": 18532,
+  "unique_countries": 37,
+  "total_revenue": 8887208.894,
+  "date_min": "2010-12-01",
+  "date_max": "2011-12-09",
+  "training_rows": 233169,
+  "testing_rows": 159523,
+  "rfm_rows": 4338,
+  "clv_rows": 3365,
+  "num_attributes": 8,
+  "missing_customerid_pct": 24.93,
+  "missing_description_pct": 0.27,
+  "silhouette": 0.6162275299061803,
+  "calinski_harabasz": 3145.058459207459,
+  "rmse": 4753.4043621807,
+  "mae": 764.4948753416023,
+  "r2": 0.38320182427163496,
+  "rule_count": 214,
+  "frequent_itemset_count": 440,
+  "cluster_counts": {
+    "0": 3054,
+    "1": 1067,
+    "2": 13,
+    "3": 204
+  },
+  "feature_importance": {
+    "Recency": 0.3497236967086792,
+    "Frequency": 0.19568897783756256,
+    "Monetary": 0.45458734035491943
+  },
+  "cluster_profiles": {
+    "Recency": {
+      "0": 43.7026850032744,
+      "1": 248.0759137769447,
+      "2": 7.384615384615385,
+      "3": 15.5
+    },
+    "Frequency": {
+      "0": 3.682711198428291,
+      "1": 1.5520149953139644,
+      "2": 82.53846153846153,
+      "3": 22.333333333333332
+    },
+    "Monetary": {
+      "0": 1353.6253120497709,
+      "1": 478.8487731958763,
+      "2": 127187.95923076922,
+      "3": 12690.500392156862
+    }
+  }
+}

@@ -1,0 +1,40 @@
+\begin{table}[H]
+\centering
+\caption{Pipeline Data Profile}
+\begin{tabular}{|l|r|}
+\hline
+\textbf{Metric} & \textbf{Value} \\
+\hline
+Raw rows (incl. duplicates) & 541,909 \\
+After deduplication & 536,641 \\
+Duplicates removed & 5,268 \\
+Rows after customer filter & 401,604 \\
+Rows after cancellation filter & 392,732 \\
+Final clean rows & 392,692 \\
+Unique customers & 4,338 \\
+Unique products & 3,665 \\
+Unique invoices & 18,532 \\
+Unique countries & 37 \\
+Total revenue & 8,887,208.89 \\
+Date range & 2010-12-01 to 2011-12-09 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{AI Model Evaluation Metrics}
+\begin{tabular}{|l|r|}
+\hline
+\textbf{Metric} & \textbf{Value} \\
+\hline
+KMeans Silhouette Score & 0.6162 \\
+KMeans Calinski-Harabasz & 3145.06 \\
+XGBoost RMSE & 4753.40 \\
+XGBoost MAE & 764.49 \\
+XGBoost R² & 0.3832 \\
+FP-Growth rules generated & 214 \\
+FP-Growth frequent itemsets & 440 \\
+\hline
+\end{tabular}
+\end{table}
