@@ -16,6 +16,8 @@ ENV/
 *.db
 data/*.csv
 db/*.db
+!data/online_retail.csv
+!db/retail_dw_fallback.db
 
 # Report generated files & LaTeX build files
 *.aux
