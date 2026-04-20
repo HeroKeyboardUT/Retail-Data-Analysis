@@ -13,6 +13,9 @@ ENV/
 # Datasets & Databases
 *.sqlite
 *.sqlite3
+*.db
+data/*.csv
+db/*.db
 
 # Report generated files & LaTeX build files
 *.aux

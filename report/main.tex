@@ -471,10 +471,31 @@ FP-Growth \cite{mlxtend} khai phá tập phổ biến (frequent itemsets) mà kh
 % =======================================================================
 \section{Experimental Results and Analysis}
 
-\subsection{ETL and Warehouse Output}
+\subsection{Experimental Output Summary}
+Kết quả thực nghiệm được sinh tự động từ pipeline và lưu tại thư mục \texttt{report/generated}. Bảng dưới đây tổng hợp đầy đủ thống kê dữ liệu và metric đánh giá mô hình từ lần chạy gần nhất:
+
 \IfFileExists{generated/metrics.tex}{\input{generated/metrics.tex}}{\textit{Chưa có file kết quả. Hãy chạy \texttt{python etl\_pipeline.py} để tạo.}}
 
-\subsection{K-Means Clustering Results}
+\subsection{Quantitative Model Evaluation}
+Để đánh giá rõ mức độ hoàn thành mục tiêu nghiên cứu, các mô hình được đối chiếu theo 3 trục: \textit{chất lượng phân cụm}, \textit{độ chính xác dự đoán CLV}, và \textit{mức độ hữu ích của luật kết hợp}.
+
+\begin{table}[H]
+\centering
+\caption{Đánh giá định lượng theo mục tiêu mô hình}
+\begin{tabular}{|p{3cm}|p{4cm}|p{4.8cm}|p{2.2cm}|}
+\hline
+\textbf{Mô hình} & \textbf{Mục tiêu} & \textbf{Kết quả định lượng} & \textbf{Đánh giá} \\
+\hline
+KMeans & Phân khúc khách hàng có tính tách biệt và dễ diễn giải & Silhouette = 0.6162; Calinski-Harabasz = 3145.06; Davies-Bouldin = 0.7542 & Đạt \\
+\hline
+XGBoost & Dự đoán \textit{FutureSpend} (CLV ngắn hạn) & RMSE = 4753.40; MAE = 764.49; MedAE = 240.13; R\textsuperscript{2} = 0.3832; Explained Variance = 0.3833; sMAPE = 124.89\% & Đạt một phần \\
+\hline
+FP-Growth & Tìm luật bán chéo có ý nghĩa kinh doanh & 440 frequent itemsets; 214 rules; Avg confidence = 0.4375; Avg lift = 10.1990; Max lift = 28.6284 & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{K-Means Clustering Results and Analysis}
 
 \begin{figure}[H]
 \centering
@@ -485,7 +506,7 @@ FP-Growth \cite{mlxtend} khai phá tập phổ biến (frequent itemsets) mà kh
 \begin{figure}[H]
 \centering
 \IfFileExists{generated/figures/cluster_heatmap.png}{\includegraphics[width=0.7\linewidth]{generated/figures/cluster_heatmap.png}}{\fbox{\parbox{0.9\linewidth}{Missing: generated/figures/cluster\_heatmap.png}}}
-\caption{Heatmap giá trị RFM trung bình của mỗi cụm — giúp đặt tên và hiểu đặc tính từng phân khúc.}
+\caption{Heatmap giá trị RFM trung bình của mỗi cụm.}
 \end{figure}
 
 \begin{figure}[H]
@@ -494,20 +515,25 @@ FP-Growth \cite{mlxtend} khai phá tập phổ biến (frequent itemsets) mà kh
 \caption{Trực quan hóa 3D các cụm khách hàng trong không gian RFM.}
 \end{figure}
 
-\textbf{Phân tích:} KMeans với k=4 phân chia khách hàng thành 4 phân khúc rõ ràng:
+\textbf{Phân tích kết quả:}
 \begin{itemize}
-    \item \textbf{Cluster 0 (At Risk):} Recency cao, Frequency và Monetary thấp — khách hàng đã lâu không mua.
-    \item \textbf{Cluster 1 (Loyal):} Recency trung bình, Frequency cao — khách hàng trung thành.
-    \item \textbf{Cluster 2 (Champions):} Recency thấp, Frequency và Monetary cao — khách hàng tốt nhất.
-    \item \textbf{Cluster 3 (New):} Recency thấp nhưng Frequency thấp — khách hàng mới.
+    \item Chất lượng phân cụm ở mức tốt cho bài toán marketing (Silhouette $>$ 0.6), các cụm tách biệt khá rõ trên không gian RFM.
+    \item Chỉ số Davies-Bouldin nhỏ ($<$ 1) cho thấy cụm đủ chặt và giảm chồng lấn giữa các phân khúc.
+    \item Có thể diễn giải 4 nhóm khách hàng theo hành vi:
+    \begin{itemize}
+        \item \textbf{At Risk:} Recency cao, Frequency và Monetary thấp.
+        \item \textbf{Loyal:} Frequency ổn định, giá trị chi tiêu trung bình.
+        \item \textbf{Champions:} Recency thấp, Frequency và Monetary rất cao.
+        \item \textbf{New/Promising:} Recency thấp nhưng tần suất mua còn thấp.
+    \end{itemize}
 \end{itemize}
 
-\subsection{XGBoost CLV Prediction Results}
+\subsection{XGBoost CLV Prediction Results and Analysis}
 
 \begin{figure}[H]
 \centering
 \IfFileExists{generated/figures/xgb_actual_vs_predicted.png}{\includegraphics[width=0.65\linewidth]{generated/figures/xgb_actual_vs_predicted.png}}{\fbox{\parbox{0.9\linewidth}{Missing: generated/figures/xgb\_actual\_vs\_predicted.png}}}
-\caption{So sánh giá trị thực tế và dự đoán của XGBoost. Các điểm càng gần đường chéo thì dự đoán càng chính xác.}
+\caption{So sánh giá trị thực tế và dự đoán của XGBoost.}
 \end{figure}
 
 \begin{figure}[H]
@@ -519,36 +545,39 @@ FP-Growth \cite{mlxtend} khai phá tập phổ biến (frequent itemsets) mà kh
 \begin{figure}[H]
 \centering
 \IfFileExists{generated/figures/feature_importance.png}{\includegraphics[width=0.7\linewidth]{generated/figures/feature_importance.png}}{\fbox{\parbox{0.9\linewidth}{Missing: generated/figures/feature\_importance.png}}}
-\caption{Mức độ quan trọng của từng đặc trưng trong mô hình XGBoost.}
+\caption{Mức độ quan trọng của các đặc trưng trong XGBoost.}
 \end{figure}
 
-\textbf{Phân tích:}
+\textbf{Phân tích kết quả:}
 \begin{itemize}
-    \item Mô hình XGBoost cho kết quả R² dương, cho thấy khả năng giải thích phương sai của biến mục tiêu.
-    \item Monetary là đặc trưng quan trọng nhất — khách hàng đã chi tiêu nhiều trong quá khứ có xu hướng tiếp tục chi tiêu.
-    \item Phần dư phân bố gần zero với đa số trường hợp, một số outlier ở giá trị cao xuất phát từ hành vi mua sắm bất thường.
+    \item R\textsuperscript{2} và Explained Variance đều xấp xỉ 0.38, cho thấy mô hình giải thích được một phần đáng kể biến thiên chi tiêu tương lai.
+    \item MAE = 764.49 và MedAE = 240.13 cho thấy sai số trung vị thấp hơn nhiều so với sai số trung bình, hàm ý có outlier chi tiêu rất lớn.
+    \item sMAPE cao phản ánh dữ liệu CLV lệch mạnh, nhiều khách hàng có chi tiêu thấp/0 trong kỳ dự báo, làm bài toán khó hơn.
+    \item Feature importance cho thấy \textbf{Monetary} là tín hiệu mạnh nhất, sau đó đến \textbf{Recency}; điều này phù hợp với trực giác kinh doanh.
 \end{itemize}
 
-\subsection{FP-Growth Association Rule Results}
+\subsection{FP-Growth Association Rules Results and Analysis}
 
 \begin{figure}[H]
 \centering
 \IfFileExists{generated/figures/rules_support_lift.png}{\includegraphics[width=0.95\linewidth]{generated/figures/rules_support_lift.png}}{\fbox{\parbox{0.9\linewidth}{Missing: generated/figures/rules\_support\_lift.png}}}
-\caption{Phân tích luật kết hợp: Support vs Lift (trái) và Support vs Confidence (phải).}
+\caption{Support vs Lift (trái) và Support vs Confidence (phải) cho các luật kết hợp.}
 \end{figure}
 
-\textbf{Phân tích:}
+\textbf{Phân tích kết quả:}
 \begin{itemize}
-    \item Các luật có Lift cao ($> 5$) cho thấy mối quan hệ mạnh giữa các sản phẩm.
-    \item Đa số luật có Support thấp nhưng Confidence cao — phù hợp cho recommendation systems.
+    \item Số lượng luật đủ lớn (214 luật) để triển khai recommendation rule-base cho bán chéo.
+    \item Avg lift = 10.199 và max lift = 28.628 cho thấy nhiều cặp sản phẩm có tương quan mạnh, không phải đồng xuất hiện ngẫu nhiên.
+    \item Avg confidence = 0.4375 cho thấy khi điều kiện antecedent xảy ra, xác suất xuất hiện consequents ở mức thực dụng cho khuyến nghị.
+    \item Pattern phổ biến là \textit{support thấp nhưng lift cao}: phù hợp với bài toán gợi ý cá nhân hóa hơn là tối ưu hàng đại trà.
 \end{itemize}
 
-\subsection{Business Analysis}
+\subsection{Business Patterns and Insights from Data}
 
 \begin{figure}[H]
 \centering
 \IfFileExists{generated/figures/monthly_revenue.png}{\includegraphics[width=0.92\linewidth]{generated/figures/monthly_revenue.png}}{\fbox{\parbox{0.9\linewidth}{Missing: generated/figures/monthly\_revenue.png}}}
-\caption{Xu hướng doanh thu theo tháng — cho thấy tính mùa vụ rõ rệt.}
+\caption{Xu hướng doanh thu theo tháng.}
 \end{figure}
 
 \begin{figure}[H]
@@ -566,14 +595,31 @@ FP-Growth \cite{mlxtend} khai phá tập phổ biến (frequent itemsets) mà kh
 \begin{figure}[H]
 \centering
 \IfFileExists{generated/figures/revenue_by_day.png}{\includegraphics[width=0.85\linewidth]{generated/figures/revenue_by_day.png}}{\fbox{\parbox{0.9\linewidth}{Missing: generated/figures/revenue\_by\_day.png}}}
-\caption{Phân bố doanh thu theo ngày trong tuần.}
+\caption{Doanh thu theo ngày trong tuần.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \IfFileExists{generated/figures/revenue_by_hour.png}{\includegraphics[width=0.85\linewidth]{generated/figures/revenue_by_hour.png}}{\fbox{\parbox{0.9\linewidth}{Missing: generated/figures/revenue\_by\_hour.png}}}
-\caption{Phân bố doanh thu theo giờ trong ngày.}
+\caption{Doanh thu theo giờ trong ngày.}
 \end{figure}
+
+\textbf{Các insight chính từ dữ liệu:}
+\begin{itemize}
+    \item Doanh thu có tính mùa vụ rõ, tăng mạnh vào các giai đoạn cận lễ.
+    \item Doanh thu tập trung vào một số thị trường và nhóm sản phẩm chủ lực, gợi ý chiến lược \textit{inventory prioritization}.
+    \item Hành vi mua hàng theo ngày/giờ cho phép tối ưu thời điểm chạy chiến dịch marketing và đề xuất sản phẩm.
+    \item Tồn tại nhóm khách hàng giá trị rất cao (high-value outliers) ảnh hưởng mạnh đến phân phối CLV.
+\end{itemize}
+
+\subsection{Objective Achievement Discussion}
+Đối chiếu với mục tiêu ở Section 1, kết quả thực nghiệm cho thấy:
+\begin{itemize}
+    \item \textbf{Mục tiêu phân khúc khách hàng: Đạt.} Các cụm rõ ràng và có thể gắn với chiến lược hành động cụ thể.
+    \item \textbf{Mục tiêu dự đoán CLV: Đạt một phần.} Mô hình có năng lực dự báo nền tảng nhưng cần cải thiện cho nhóm khách hàng chi tiêu cực đoan.
+    \item \textbf{Mục tiêu khám phá tri thức bán chéo: Đạt.} Luật kết hợp có lift cao, hữu ích cho recommendation và bundling.
+    \item \textbf{Mục tiêu hỗ trợ ra quyết định: Đạt.} Dashboard và báo cáo tổng hợp cung cấp đủ bằng chứng định lượng và trực quan cho nghiệp vụ.
+\end{itemize}
 
 % =======================================================================
 % 6. KNOWLEDGE PRESENTATION / APPLICATION
@@ -626,10 +672,10 @@ Toàn bộ kết quả được lưu vào \texttt{report/generated/summary.json}
 \subsection{Generated Artifacts}
 Pipeline tạo ra các file sau:
 \begin{itemize}
-    \item \textbf{Mô hình:} \texttt{output/models/kmeans.pkl}, \texttt{xgb\_model.pkl}, \texttt{rules.pkl}, \texttt{scaler.pkl}
+    \item \textbf{Mô hình:} \texttt{output/models/kmeans.pkl}, \texttt{output/models/xgb\_model.pkl}, \texttt{output/models/rules.pkl}, \texttt{output/models/scaler.pkl}
     \item \textbf{Báo cáo:} \texttt{report/generated/summary.json}, \texttt{metrics.tex}, \texttt{pipeline.log}
     \item \textbf{Hình ảnh:} 17 file PNG trong \texttt{report/generated/figures/}
-    \item \textbf{Database:} PostgreSQL (hoặc SQLite fallback \texttt{retail\_dw\_fallback.db})
+    \item \textbf{Database:} PostgreSQL (hoặc SQLite fallback \texttt{db/retail\_dw\_fallback.db})
 \end{itemize}
 
 % =======================================================================
@@ -637,34 +683,45 @@ Pipeline tạo ra các file sau:
 % =======================================================================
 \section{Conclusion and Future Work}
 
+Phần này tổng hợp các kết quả chính của dự án, những giới hạn còn tồn tại, và các hướng mở rộng để nâng cao giá trị học thuật cũng như khả năng ứng dụng thực tiễn của hệ thống.
+
 \subsection{Main Findings and Contributions}
 \begin{enumerate}
-    \item Xây dựng thành công pipeline ETL tự động end-to-end với khả năng fallback (PostgreSQL → SQLite).
-    \item Star Schema cho Data Warehouse bán lẻ với 4 bảng chiều và 1 bảng sự kiện.
-    \item KMeans phân cụm 4 phân khúc khách hàng có ý nghĩa kinh doanh rõ ràng.
-    \item XGBoost dự đoán CLV với kết quả R² cho thấy mô hình có khả năng giải thích.
-    \item FP-Growth sinh luật kết hợp có giá trị cho bán chéo sản phẩm.
-    \item Dashboard tương tác kết hợp BI và AI serving.
+    \item \textbf{Hoàn thiện kiến trúc end-to-end cho bài toán bán lẻ:} Từ nguồn dữ liệu CSV, hệ thống thực hiện đầy đủ các bước ETL, nạp vào Data Warehouse theo Star Schema, huấn luyện mô hình AI, trực quan hóa và sinh báo cáo tự động.
+    \item \textbf{Đóng góp về hạ tầng dữ liệu và khả năng tái lập:} Pipeline có logging chi tiết, output chuẩn hóa (summary, metrics, figures), và cơ chế fallback PostgreSQL $\rightarrow$ SQLite, giúp chạy ổn định trong nhiều môi trường.
+    \item \textbf{Đóng góp về phân tích khách hàng:} KMeans xác định 4 phân khúc RFM có ý nghĩa nghiệp vụ, hỗ trợ phân biệt nhóm khách hàng giá trị cao, khách hàng trung thành, khách hàng mới và nhóm có nguy cơ rời bỏ.
+    \item \textbf{Đóng góp về dự báo giá trị khách hàng:} XGBoost cung cấp dự báo CLV ngắn hạn với năng lực giải thích ở mức hữu ích (R\textsuperscript{2} dương), phù hợp làm baseline cho các chiến lược phân bổ ngân sách marketing.
+    \item \textbf{Đóng góp về recommendation tri thức:} FP-Growth tạo tập luật kết hợp có lift cao, cung cấp cơ sở cho cross-selling và product bundling.
+    \item \textbf{Đóng góp về hỗ trợ ra quyết định:} Dashboard tích hợp KPI, phân tích mô hình, và chức năng AI customer intelligence, giúp người dùng nghiệp vụ tiếp cận insight nhanh và trực quan.
 \end{enumerate}
+
+Nhìn chung, hệ thống đã đạt được các mục tiêu chính đặt ra ở phần mở đầu, đặc biệt ở năng lực phân khúc khách hàng và khai phá tri thức bán chéo. Bài toán dự báo CLV đã cho kết quả khả quan nhưng vẫn còn dư địa cải thiện.
 
 \subsection{Limitations}
 \begin{itemize}
-    \item \textbf{Dữ liệu:} Chỉ 1 năm dữ liệu, thiếu thông tin nhân khẩu học khách hàng.
-    \item \textbf{Mô hình K-Means:} Giả định cụm hình cầu, có thể không phù hợp nếu phân bố phức tạp. Chưa thử nghiệm DBSCAN hay Gaussian Mixture.
-    \item \textbf{XGBoost:} Chưa tối ưu hyperparameter (Grid Search, Bayesian Optimization).
-    \item \textbf{FP-Growth:} Chỉ áp dụng cho thị trường UK, chưa mở rộng ra toàn bộ quốc gia.
-    \item \textbf{Dashboard:} Chưa có authentication, chưa deploy lên cloud.
+    \item \textbf{Giới hạn dữ liệu và ngữ cảnh:} Tập dữ liệu chỉ bao phủ khoảng 1 năm giao dịch và thiếu biến bổ sung (nhân khẩu học, kênh marketing, hành vi web), làm giảm khả năng mô hình hóa đầy đủ vòng đời khách hàng.
+    \item \textbf{Giới hạn của KMeans:} KMeans giả định cụm dạng cầu và nhạy với outlier; điều này có thể làm giảm chất lượng phân cụm khi dữ liệu có cấu trúc phi tuyến hoặc phân phối lệch mạnh.
+    \item \textbf{Giới hạn của mô hình CLV:} XGBoost hiện chưa được tối ưu siêu tham số một cách hệ thống và chưa khai thác đặc trưng chuỗi thời gian sâu hơn, nên sai số vẫn cao ở nhóm khách hàng chi tiêu bất thường.
+    \item \textbf{Giới hạn của luật kết hợp:} FP-Growth đang áp dụng cho tập UK, vì vậy tính khái quát cho các thị trường khác cần được kiểm định thêm.
+    \item \textbf{Giới hạn triển khai hệ thống:} Dashboard hiện thiên về phân tích nội bộ, chưa có lớp bảo mật (authentication/authorization), chưa có CI/CD và chưa triển khai cloud production.
 \end{itemize}
 
 \subsection{Future Work}
 \begin{enumerate}
-    \item Tích hợp thêm nguồn dữ liệu (website analytics, customer reviews) vào DW.
-    \item Thử nghiệm Deep Learning (LSTM, Transformer) cho time-series CLV prediction.
-    \item Deploy pipeline lên cloud (AWS, GCP) với Apache Airflow scheduler.
-    \item Áp dụng DBSCAN hoặc Hierarchical Clustering cho phân cụm linh hoạt hơn.
-    \item Xây dựng A/B testing framework cho đánh giá hiệu quả recommendation.
-    \item Thêm real-time streaming với Apache Kafka cho cập nhật dữ liệu liên tục.
-    \item Sử dụng Power BI hoặc Tableau cho enterprise-grade visualization.
+    \item \textbf{Mở rộng dữ liệu đầu vào:} Tích hợp thêm dữ liệu hành vi số (clickstream), chiến dịch marketing, đánh giá sản phẩm và dữ liệu CRM để tăng sức mạnh dự báo.
+    \item \textbf{Nâng cấp mô hình CLV:} Thực hiện hyperparameter tuning (Grid/Bayesian search), thử nghiệm các mô hình temporal (LSTM/Transformer), và đánh giá bằng cross-validation theo thời gian.
+    \item \textbf{Nâng cấp phân cụm khách hàng:} So sánh KMeans với DBSCAN, Gaussian Mixture, Hierarchical Clustering để chọn mô hình phù hợp hơn với phân phối dữ liệu thực tế.
+    \item \textbf{Nâng cấp recommendation:} Kết hợp luật kết hợp với phương pháp học máy (hybrid recommender), đánh giá online/offline bằng A/B testing và business KPIs.
+    \item \textbf{Nâng cấp hạ tầng triển khai:} Đưa pipeline lên cloud, lập lịch bằng Airflow, bổ sung CI/CD, monitoring và kiểm soát chất lượng dữ liệu tự động.
+    \item \textbf{Nâng cấp ứng dụng BI:} Bổ sung authentication, role-based access, và khả năng drill-down để phục vụ nhiều nhóm người dùng nghiệp vụ.
 \end{enumerate}
+
+% =======================================================================
+% 9. REFERENCES
+% =======================================================================
+\section{References}
+Danh mục tài liệu tham khảo được trích xuất từ các nguồn đã sử dụng trong báo cáo (lý thuyết Data Warehouse, tài liệu thư viện, và nguồn dữ liệu công khai).
+
+\printbibliography[heading=none]
 
 \end{document}

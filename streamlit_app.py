@@ -8,7 +8,8 @@ import streamlit as st
 from sqlalchemy import create_engine, text
 
 DEFAULT_DATABASE_URL = "postgresql+psycopg2://admin:admin@localhost:5432/retail_dw"
-FALLBACK_SQLITE = os.path.join(os.path.dirname(__file__) or ".", "retail_dw_fallback.db")
+BASE_DIR = os.path.dirname(__file__) or "."
+FALLBACK_SQLITE = os.path.join(BASE_DIR, "db", "retail_dw_fallback.db")
 
 @st.cache_resource
 def get_engine():
@@ -142,15 +143,15 @@ def fetch_customer_items(customer_id: float):
 
 @st.cache_resource
 def load_models():
-    # Attempt to read from output/models where etl_pipeline normally saves them
-    base_dir = os.path.dirname(__file__) or "."
-    default_model_dir = os.path.join(base_dir, "output", "models")
+    default_model_dir = os.path.join(BASE_DIR, "output", "models")
     
     model_dir = os.getenv("MODEL_OUTPUT_DIR", default_model_dir)
-    
-    # Check if files exist in output/models, if not try root dir as fallback
-    if not os.path.exists(os.path.join(model_dir, "kmeans.pkl")):
-        model_dir = base_dir
+
+    expected_files = ["kmeans.pkl", "xgb_model.pkl", "rules.pkl", "scaler.pkl"]
+    missing = [name for name in expected_files if not os.path.exists(os.path.join(model_dir, name))]
+    if missing:
+        missing_list = ", ".join(missing)
+        raise FileNotFoundError(f"Missing model files in '{model_dir}': {missing_list}")
 
     kmeans = joblib.load(os.path.join(model_dir, "kmeans.pkl"))
     xgb_model = joblib.load(os.path.join(model_dir, "xgb_model.pkl"))
