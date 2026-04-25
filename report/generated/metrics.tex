@@ -1,10 +1,11 @@
 \begin{table}[H]
 \centering
 \caption{Pipeline Data Profile}
-\begin{tabular}{|l|r|}
-\hline
+\smallskip
+\begin{tabular}{lr}
+\toprule
 \textbf{Metric} & \textbf{Value} \\
-\hline
+\midrule
 Raw rows (incl. duplicates) & 541,909 \\
 After deduplication & 536,641 \\
 Duplicates removed & 5,268 \\
@@ -17,24 +18,25 @@ Unique invoices & 18,532 \\
 Unique countries & 37 \\
 Total revenue & 8,887,208.89 \\
 Date range & 2010-12-01 to 2011-12-09 \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
 \begin{table}[H]
 \centering
 \caption{AI Model Evaluation Metrics}
-\begin{tabular}{|l|r|}
-\hline
+\smallskip
+\begin{tabular}{lr}
+\toprule
 \textbf{Metric} & \textbf{Value} \\
-\hline
+\midrule
 KMeans Silhouette Score & 0.6162 \\
 KMeans Calinski-Harabasz & 3145.06 \\
 KMeans Davies-Bouldin & 0.7542 \\
 XGBoost RMSE & 4753.40 \\
 XGBoost MAE & 764.49 \\
 XGBoost MedAE & 240.13 \\
-XGBoost R² & 0.3832 \\
+XGBoost R$^2$ & 0.3832 \\
 XGBoost Explained Variance & 0.3833 \\
 XGBoost sMAPE (\%) & 124.89 \\
 FP-Growth rules generated & 214 \\
@@ -43,6 +45,80 @@ FP-Growth avg support & 0.0191 \\
 FP-Growth avg confidence & 0.4375 \\
 FP-Growth avg lift & 10.1990 \\
 FP-Growth max lift & 28.6284 \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
+
+\begin{table}[H]
+\centering
+\caption{KMeans Probe Predictions on New Customer Profiles}
+\smallskip
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Profile} & \textbf{Recency} & \textbf{Frequency} & \textbf{Monetary} & \textbf{Cluster} \\
+\midrule
+at\_risk & 263.00 & 1.00 & 155.30 & 1 \\
+loyal & 51.00 & 9.00 & 668.57 & 0 \\
+champion & 5.00 & 9.00 & 3640.84 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{XGBoost Holdout Test Examples}
+\smallskip
+\begin{tabular}{rrrrrr}
+\toprule
+\textbf{Recency} & \textbf{Frequency} & \textbf{Monetary} & \textbf{Actual} & \textbf{Predicted} & \textbf{Error} \\
+\midrule
+15.00 & 3.00 & 855.00 & 1763.23 & 553.38 & -1209.85 \\
+24.00 & 3.00 & 539.13 & 213.64 & 313.28 & 99.64 \\
+15.00 & 5.00 & 797.02 & 219.12 & 553.38 & 334.26 \\
+91.00 & 2.00 & 1399.11 & 591.90 & 629.75 & 37.85 \\
+233.00 & 1.00 & 63.00 & 0.00 & 38.84 & 38.84 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Top Association Rules}
+\smallskip
+\footnotesize
+\begin{tabular}{>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}p{4.2cm}rrr}
+\toprule
+\textbf{Antecedents} & \textbf{Consequents} & \textbf{Support} & \textbf{Confidence} & \textbf{Lift} \\
+\midrule
+WOODEN HEART CHRISTMAS SCANDINAVIAN & WOODEN STAR CHRISTMAS SCANDINAVIAN & 0.0180 & 0.6897 & 28.6284 \\
+WOODEN STAR CHRISTMAS SCANDINAVIAN & WOODEN HEART CHRISTMAS SCANDINAVIAN & 0.0180 & 0.7481 & 28.6284 \\
+GREEN REGENCY TEACUP AND SAUCER & PINK REGENCY TEACUP AND SAUCER; ROSES REGENCY TEACUP AND SAUCER  & 0.0205 & 0.5572 & 24.2167 \\
+PINK REGENCY TEACUP AND SAUCER; ROSES REGENCY TEACUP AND SAUCER  & GREEN REGENCY TEACUP AND SAUCER & 0.0205 & 0.8903 & 24.2167 \\
+PINK REGENCY TEACUP AND SAUCER & GREEN REGENCY TEACUP AND SAUCER; ROSES REGENCY TEACUP AND SAUCER  & 0.0205 & 0.6917 & 24.1886 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Customer Recommendation Example}
+\smallskip
+\footnotesize
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{8.6cm}}
+\toprule
+\textbf{Field} & \textbf{Value} \\
+\midrule
+CustomerID & 12886 \\
+Purchased items (sample) & 12 PENCILS TALL TUBE WOODLAND, 3 HOOK PHOTO SHELF ANTIQUE WHITE, 3 TRADITIONAl BISCUIT CUTTERS  SET, ... (+7 more) \\
+Matched antecedents & PINK REGENCY TEACUP AND SAUCER; ROSES REGENCY TEACUP AND SAUCER  \\
+Recommended item(s) & GREEN REGENCY TEACUP AND SAUCER \\
+Support & 0.0205 \\
+Confidence & 0.8903 \\
+Lift & 24.2167 \\
+\bottomrule
+\end{tabular}
+\end{table}
+

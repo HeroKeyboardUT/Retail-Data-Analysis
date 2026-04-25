@@ -9,7 +9,7 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{array}
-\usepackage{tabularx, caption}
+\usepackage{tabularx, caption, booktabs}
 \usepackage{multirow}
 \usepackage{multicol}
 \usepackage{rotating}
@@ -23,8 +23,6 @@
 \usetikzlibrary{shapes, arrows, positioning, fit, calc, snakes, backgrounds}
 \usepackage{bm}
 \usepackage{float}
-\usepackage[backend=bibtex,style=ieee]{biblatex}
-\addbibresource{references.bib}
 \usepackage[colorlinks]{hyperref}
 \usepackage[
  sort=none,
@@ -168,7 +166,7 @@
 \subsection{Background and Motivation}
 Trong bối cảnh thương mại điện tử phát triển mạnh mẽ, các doanh nghiệp bán lẻ trực tuyến ngày càng tạo ra lượng dữ liệu giao dịch khổng lồ. Tuy nhiên, việc khai thác hiệu quả các dữ liệu này để đưa ra quyết định kinh doanh vẫn là thách thức lớn. Các hệ thống quản lý giao dịch truyền thống (OLTP) không phù hợp cho phân tích phức tạp vì chúng được tối ưu cho xử lý giao dịch, không phải truy vấn phân tích.
 
-Data Warehouse (DW) kết hợp với Business Intelligence (BI) và Data Mining đã chứng minh khả năng giải quyết vấn đề này bằng cách cung cấp một kiến trúc tích hợp cho việc thu thập, lưu trữ, phân tích và trực quan hóa dữ liệu \cite{kimball2013}.
+Data Warehouse (DW) kết hợp với Business Intelligence (BI) và Data Mining đã chứng minh khả năng giải quyết vấn đề này bằng cách cung cấp một kiến trúc tích hợp cho việc thu thập, lưu trữ, phân tích và trực quan hóa dữ liệu.
 
 \subsection{Research Problem and Objectives}
 \textbf{Vấn đề nghiên cứu:} Làm thế nào để xây dựng một hệ thống Data Warehouse hoàn chỉnh cho dữ liệu bán lẻ trực tuyến, cho phép phân tích hành vi khách hàng và dự đoán giá trị khách hàng?
@@ -192,14 +190,14 @@ Dự án giải quyết ba nhu cầu thực tiễn quan trọng:
 \end{itemize}
 
 \subsection{Dataset Context}
-Tập dữ liệu \textit{Online Retail} \cite{onlineRetailDataset} thuộc miền \textbf{thương mại điện tử (E-commerce)}, chứa các giao dịch thực tế từ một công ty bán lẻ quà tặng tại Vương quốc Anh trong giai đoạn 01/12/2010 -- 09/12/2011. Dữ liệu bao gồm thông tin hóa đơn, sản phẩm, khách hàng và quốc gia.
+Tập dữ liệu \textit{Online Retail} thuộc miền \textbf{thương mại điện tử (E-commerce)}, chứa các giao dịch thực tế từ một công ty bán lẻ quà tặng tại Vương quốc Anh trong giai đoạn 01/12/2010 -- 09/12/2011. Dữ liệu bao gồm thông tin hóa đơn, sản phẩm, khách hàng và quốc gia.
 
 \subsection{Brief Introduction to Data Mining Techniques}
 Dự án sử dụng ba kỹ thuật khai phá dữ liệu chính:
 \begin{itemize}
-    \item \textbf{K-Means Clustering} \cite{scikitlearn}: Phân cụm khách hàng không giám sát dựa trên đặc trưng RFM, phát hiện các phân khúc khách hàng tự nhiên.
+    \item \textbf{K-Means Clustering}: Phân cụm khách hàng không giám sát dựa trên đặc trưng RFM, phát hiện các phân khúc khách hàng tự nhiên.
     \item \textbf{XGBoost Regression}: Mô hình gradient boosting cho bài toán hồi quy dự đoán chi tiêu tương lai (CLV), kết hợp nhiều cây quyết định yếu thành mô hình mạnh.
-    \item \textbf{FP-Growth + Association Rules} \cite{mlxtend}: Khai phá tập phổ biến và luật kết hợp từ giỏ hàng, phát hiện các mẫu mua hàng đồng thời.
+    \item \textbf{FP-Growth + Association Rules}: Khai phá tập phổ biến và luật kết hợp từ giỏ hàng, phát hiện các mẫu mua hàng đồng thời.
 \end{itemize}
 
 % =======================================================================
@@ -285,7 +283,7 @@ Phát hiện và loại bỏ các bản ghi trùng lặp hoàn toàn trong tập
 \subsection{Data Transformation}
 
 \subsubsection{Chuẩn hóa dữ liệu (Normalization/Standardization)}
-Đặc trưng RFM có phân bố rất lệch (skewed), do đó chúng tôi áp dụng \textbf{StandardScaler} (z-score normalization) trước khi đưa vào K-Means:
+Đặc trưng RFM có phân bố rất lệch (skewed), do đó nhóm áp dụng \textbf{StandardScaler} (z-score normalization) trước khi đưa vào K-Means:
 \[
 z = \frac{x - \mu}{\sigma}
 \]
@@ -311,7 +309,7 @@ trong đó $\mu$ là giá trị trung bình và $\sigma$ là độ lệch chuẩ
 Dự án sử dụng một tập dữ liệu duy nhất, tuy nhiên quá trình tích hợp được thực hiện khi nạp dữ liệu vào Star Schema:
 \begin{itemize}
     \item Bảng giao dịch gốc được phân tách thành 3 bảng chiều (Dim\_Customer, Dim\_Product, Dim\_Time) và 1 bảng sự kiện (Fact\_Sales).
-    \item Bảng Customer\_RFM và Customer\_Cluster được tính toán và lưu riêng để phục vụ truy vấn nhanh.
+    \item Bảng Customer\_RFM và Customer\_Cluster được tính toán và lưu riêng để phục vụ truy vấn nhanh, đồng thời hỗ trợ gắn nhãn phân khúc khách hàng trong dashboard.
 \end{itemize}
 
 \subsection{Feature Selection}
@@ -336,7 +334,7 @@ Ba đặc trưng này được sử dụng đồng thời cho cả K-Means (phâ
 \section{System Architecture}
 
 \subsection{Overall Architecture}
-Hệ thống được thiết kế theo kiến trúc Data Source → ETL → Data Warehouse → Dashboard → AI, tuân theo mô hình Kimball \cite{kimball2013}:
+Hệ thống được thiết kế theo kiến trúc Data Source → ETL → Data Warehouse → Dashboard → AI, tuân theo mô hình Kimball:
 
 \begin{figure}[H]
 \centering
@@ -369,7 +367,7 @@ Hệ thống được thiết kế theo kiến trúc Data Source → ETL → Dat
 \end{enumerate}
 
 \subsection{Star Schema Design}
-Lược đồ hình sao (Star Schema) gồm 4 bảng lõi:
+Lược đồ hình sao (Star Schema) gồm 4 bảng lõi và 2 bảng phân tích bổ sung:
 
 \begin{figure}[H]
 \centering
@@ -398,7 +396,7 @@ Ngoài ra, pipeline tạo thêm 2 bảng phân tích:
 \subsection{K-Means Clustering}
 
 \subsubsection{Algorithm Description}
-K-Means \cite{scikitlearn} là thuật toán phân cụm không giám sát, chia $n$ điểm dữ liệu thành $k$ cụm bằng cách tối thiểu hóa tổng bình phương khoảng cách trong cụm (inertia):
+K-Means là thuật toán phân cụm không giám sát, chia $n$ điểm dữ liệu thành $k$ cụm bằng cách tối thiểu hóa tổng bình phương khoảng cách trong cụm (inertia):
 \[
 J = \sum_{i=1}^{k} \sum_{x \in C_i} \|x - \mu_i\|^2
 \]
@@ -456,7 +454,7 @@ trong đó $l$ là hàm loss (squared error) và $\Omega$ là hệ số regulari
 \subsection{FP-Growth Association Rules}
 
 \subsubsection{Algorithm Description}
-FP-Growth \cite{mlxtend} khai phá tập phổ biến (frequent itemsets) mà không cần sinh ứng viên như Apriori, bằng cách xây dựng cây FP-Tree nén. Từ tập phổ biến, luật kết hợp được sinh ra dựa trên các ngưỡng:
+FP-Growth khai phá tập phổ biến (frequent itemsets) mà không cần sinh ứng viên như Apriori, bằng cách xây dựng cây FP-Tree nén. Từ tập phổ biến, luật kết hợp được sinh ra dựa trên các ngưỡng:
 \begin{itemize}
     \item \textbf{Support:} $P(A \cup B)$ — xác suất xuất hiện đồng thời.
     \item \textbf{Confidence:} $P(B|A)$ — xác suất mua B khi đã mua A.
@@ -476,12 +474,20 @@ FP-Growth \cite{mlxtend} khai phá tập phổ biến (frequent itemsets) mà kh
 \section{Experimental Results and Analysis}
 
 \subsection{Experimental Output Summary}
-Kết quả thực nghiệm được sinh tự động từ pipeline và lưu tại thư mục \texttt{report/generated}. Bảng dưới đây tổng hợp đầy đủ thống kê dữ liệu và metric đánh giá mô hình từ lần chạy gần nhất:
+Toàn bộ kết quả thực nghiệm được sinh tự động từ pipeline và lưu tại thư mục \texttt{report/generated}. Các bảng trong mục này phản ánh trực tiếp lần chạy gần nhất, bao gồm:
+\begin{itemize}
+    \item Thống kê dữ liệu sau làm sạch và nạp kho dữ liệu;
+    \item Chỉ số đánh giá tổng hợp cho ba mô hình KMeans, XGBoost và FP-Growth;
+    \item Các ví dụ kiểm thử minh họa (probe/holdout/recommendation) để kiểm chứng hành vi mô hình trên dữ liệu cụ thể.
+\end{itemize}
+Để tăng tính dễ đọc theo phong cách bài báo nghiên cứu, các bảng được chuẩn hóa theo định dạng tối giản: tiêu đề rõ ràng, căn lề nhất quán, và ưu tiên thông tin cốt lõi thay vì liệt kê quá dài.
 
 \IfFileExists{generated/metrics.tex}{\input{generated/metrics.tex}}{\textit{Chưa có file kết quả. Hãy chạy \texttt{python etl\_pipeline.py} để tạo.}}
 
 \subsection{Quantitative Model Evaluation}
-Để đánh giá rõ mức độ hoàn thành mục tiêu nghiên cứu, các mô hình được đối chiếu theo 3 trục: \textit{chất lượng phân cụm}, \textit{độ chính xác dự đoán CLV}, và \textit{mức độ hữu ích của luật kết hợp}.
+Để đánh giá mức độ hoàn thành mục tiêu nghiên cứu, nhóm đối chiếu kết quả theo ba trục: \textit{chất lượng phân cụm}, \textit{độ chính xác dự đoán CLV}, và \textit{mức hữu ích của luật kết hợp}.
+
+Bên cạnh các chỉ số tổng hợp, pipeline sinh thêm các phép kiểm thử trực quan: (i) KMeans dự đoán trên 3 hồ sơ khách hàng probe, (ii) XGBoost báo cáo 5 mẫu holdout với cặp giá trị thực tế--dự đoán, và (iii) FP-Growth hiển thị top luật cùng một ví dụ recommendation cụ thể. Nhờ đó, phần đánh giá không chỉ dừng ở metric tổng quát mà còn thể hiện được khả năng ứng dụng thực tế của từng mô hình.
 
 \begin{table}[H]
 \centering
@@ -523,6 +529,7 @@ FP-Growth & Tìm luật bán chéo có ý nghĩa kinh doanh & 440 frequent items
 \begin{itemize}
     \item Chất lượng phân cụm ở mức tốt cho bài toán marketing (Silhouette $>$ 0.6), các cụm tách biệt khá rõ trên không gian RFM.
     \item Chỉ số Davies-Bouldin nhỏ ($<$ 1) cho thấy cụm đủ chặt và giảm chồng lấn giữa các phân khúc.
+    \item Các probe profile mới được dùng để kiểm tra khả năng gán cụm của mô hình trước khi áp dụng trong dashboard.
     \item Có thể diễn giải 4 nhóm khách hàng theo hành vi:
     \begin{itemize}
         \item \textbf{At Risk:} Recency cao, Frequency và Monetary thấp.
@@ -558,6 +565,7 @@ FP-Growth & Tìm luật bán chéo có ý nghĩa kinh doanh & 440 frequent items
     \item MAE = 764.49 và MedAE = 240.13 cho thấy sai số trung vị thấp hơn nhiều so với sai số trung bình, hàm ý có outlier chi tiêu rất lớn.
     \item sMAPE cao phản ánh dữ liệu CLV lệch mạnh, nhiều khách hàng có chi tiêu thấp/0 trong kỳ dự báo, làm bài toán khó hơn.
     \item Feature importance cho thấy \textbf{Monetary} là tín hiệu mạnh nhất, sau đó đến \textbf{Recency}; điều này phù hợp với trực giác kinh doanh.
+    \item 5 dòng holdout test được ghi nhận để kiểm tra model trên dữ liệu chưa thấy trong quá trình huấn luyện.
 \end{itemize}
 
 \subsection{FP-Growth Association Rules Results and Analysis}
@@ -574,6 +582,7 @@ FP-Growth & Tìm luật bán chéo có ý nghĩa kinh doanh & 440 frequent items
     \item Avg lift = 10.199 và max lift = 28.628 cho thấy nhiều cặp sản phẩm có tương quan mạnh, không phải đồng xuất hiện ngẫu nhiên.
     \item Avg confidence = 0.4375 cho thấy khi điều kiện antecedent xảy ra, xác suất xuất hiện consequents ở mức thực dụng cho khuyến nghị.
     \item Pattern phổ biến là \textit{support thấp nhưng lift cao}: phù hợp với bài toán gợi ý cá nhân hóa hơn là tối ưu hàng đại trà.
+    \item Một ví dụ recommendation cho khách hàng cụ thể được trích từ rule phù hợp nhất để minh họa cách ứng dụng trong bán chéo.
 \end{itemize}
 
 \subsection{Business Patterns and Insights from Data}
@@ -656,6 +665,9 @@ FP-Growth Rules & Mẫu mua hàng đồng thời & Gợi ý bán chéo (cross-se
 \hline
 \end{tabular}
 \end{table}
+
+\subsection{Minh họa kiểm thử và recommendation}
+Pipeline sinh thêm 3 probe profiles cho KMeans, 5 mẫu holdout cho XGBoost, và một ví dụ khách hàng cùng các sản phẩm được khuyến nghị từ luật kết hợp. Các bảng này được tạo tự động trong \texttt{generated/metrics.tex} để báo cáo luôn cập nhật đúng lần chạy gần nhất.
 
 % =======================================================================
 % 7. PIPELINE LOGGING

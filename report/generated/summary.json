@@ -12,7 +12,7 @@
   "unique_products": 3665,
   "unique_invoices": 18532,
   "unique_countries": 37,
-  "total_revenue": 8887208.894000001,
+  "total_revenue": 8887208.894,
   "date_min": "2010-12-01",
   "date_max": "2011-12-09",
   "training_rows": 233169,
@@ -67,5 +67,155 @@
       "2": 127187.95923076922,
       "3": 12690.500392156862
     }
+  },
+  "kmeans_probe_predictions": [
+    {
+      "profile": "at_risk",
+      "Recency": 263.0,
+      "Frequency": 1.0,
+      "Monetary": 155.296,
+      "predicted_cluster": 1
+    },
+    {
+      "profile": "loyal",
+      "Recency": 51.0,
+      "Frequency": 9.0,
+      "Monetary": 668.57,
+      "predicted_cluster": 0
+    },
+    {
+      "profile": "champion",
+      "Recency": 5.0,
+      "Frequency": 9.0,
+      "Monetary": 3640.841,
+      "predicted_cluster": 0
+    }
+  ],
+  "xgb_holdout_examples": [
+    {
+      "Recency": 15,
+      "Frequency": 3,
+      "Monetary": 855.0,
+      "actual_future_spend": 1763.23,
+      "predicted_future_spend": 553.3784790039062,
+      "error": -1209.8515209960938
+    },
+    {
+      "Recency": 24,
+      "Frequency": 3,
+      "Monetary": 539.13,
+      "actual_future_spend": 213.64,
+      "predicted_future_spend": 313.2825622558594,
+      "error": 99.64256225585939
+    },
+    {
+      "Recency": 15,
+      "Frequency": 5,
+      "Monetary": 797.02,
+      "actual_future_spend": 219.12,
+      "predicted_future_spend": 553.3784790039062,
+      "error": 334.25847900390625
+    },
+    {
+      "Recency": 91,
+      "Frequency": 2,
+      "Monetary": 1399.1100000000001,
+      "actual_future_spend": 591.9,
+      "predicted_future_spend": 629.7532958984375,
+      "error": 37.85329589843752
+    },
+    {
+      "Recency": 233,
+      "Frequency": 1,
+      "Monetary": 63.0,
+      "actual_future_spend": 0.0,
+      "predicted_future_spend": 38.84321594238281,
+      "error": 38.84321594238281
+    }
+  ],
+  "top_rules_examples": [
+    {
+      "antecedents": [
+        "WOODEN HEART CHRISTMAS SCANDINAVIAN"
+      ],
+      "consequents": [
+        "WOODEN STAR CHRISTMAS SCANDINAVIAN"
+      ],
+      "support": 0.018022347711161842,
+      "confidence": 0.6896551724137931,
+      "lift": 28.6284289276808
+    },
+    {
+      "antecedents": [
+        "WOODEN STAR CHRISTMAS SCANDINAVIAN"
+      ],
+      "consequents": [
+        "WOODEN HEART CHRISTMAS SCANDINAVIAN"
+      ],
+      "support": 0.018022347711161842,
+      "confidence": 0.7481296758104738,
+      "lift": 28.628428927680797
+    },
+    {
+      "antecedents": [
+        "GREEN REGENCY TEACUP AND SAUCER"
+      ],
+      "consequents": [
+        "PINK REGENCY TEACUP AND SAUCER",
+        "ROSES REGENCY TEACUP AND SAUCER "
+      ],
+      "support": 0.020485401898353958,
+      "confidence": 0.55718954248366,
+      "lift": 24.216650454785913
+    },
+    {
+      "antecedents": [
+        "PINK REGENCY TEACUP AND SAUCER",
+        "ROSES REGENCY TEACUP AND SAUCER "
+      ],
+      "consequents": [
+        "GREEN REGENCY TEACUP AND SAUCER"
+      ],
+      "support": 0.020485401898353958,
+      "confidence": 0.8903394255874673,
+      "lift": 24.216650454785913
+    },
+    {
+      "antecedents": [
+        "PINK REGENCY TEACUP AND SAUCER"
+      ],
+      "consequents": [
+        "GREEN REGENCY TEACUP AND SAUCER",
+        "ROSES REGENCY TEACUP AND SAUCER "
+      ],
+      "support": 0.020485401898353958,
+      "confidence": 0.691683569979716,
+      "lift": 24.188581314878892
+    }
+  ],
+  "customer_recommendation_example": {
+    "customer_id": 12886,
+    "purchased_items": [
+      "12 PENCILS TALL TUBE WOODLAND",
+      "3 HOOK PHOTO SHELF ANTIQUE WHITE",
+      "3 TRADITIONAl BISCUIT CUTTERS  SET",
+      "36 DOILIES VINTAGE CHRISTMAS",
+      "6 GIFT TAGS VINTAGE CHRISTMAS ",
+      "6 ROCKET BALLOONS ",
+      "60 CAKE CASES VINTAGE CHRISTMAS",
+      "ALARM CLOCK BAKELIKE RED ",
+      "BISCUIT TIN VINTAGE CHRISTMAS",
+      "BLUE DINER WALL CLOCK"
+    ],
+    "matched_antecedents": [
+      "PINK REGENCY TEACUP AND SAUCER",
+      "ROSES REGENCY TEACUP AND SAUCER "
+    ],
+    "recommendations": [
+      "GREEN REGENCY TEACUP AND SAUCER"
+    ],
+    "support": 0.020485401898353958,
+    "confidence": 0.8903394255874673,
+    "lift": 24.216650454785913
   }
 }

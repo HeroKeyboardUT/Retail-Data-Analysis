@@ -24,9 +24,9 @@ def run_pipeline(file_path: str, database_url: str, output_dir: str, report_dir:
     load_star_schema(df, rfm, engine, logger)
 
     logger.info("=== PHASE 3: MODEL TRAINING ===")
-    scaler, kmeans, rfm_with_cluster, sil_score, ch_score, db_score, k_range, inertias, sil_scores = train_kmeans_model(rfm, logger)
-    xgb_model, rmse, mae, medae, r2, explained_var, smape, y_test, y_pred = train_xgboost_model(clv_data, logger)
-    rules, frequent_itemsets, rule_metrics = train_fpgrowth_rules(df, logger)
+    scaler, kmeans, rfm_with_cluster, sil_score, ch_score, db_score, k_range, inertias, sil_scores, kmeans_probe_predictions = train_kmeans_model(rfm, logger)
+    xgb_model, rmse, mae, medae, r2, explained_var, smape, y_test, y_pred, xgb_holdout_examples = train_xgboost_model(clv_data, logger)
+    rules, frequent_itemsets, rule_metrics, top_rules_examples, customer_recommendation_example = train_fpgrowth_rules(df, logger)
 
     rfm_with_cluster.reset_index().to_sql("Customer_Cluster", engine, index=False, if_exists="replace")
     logger.info("Customer_Cluster table saved to database")
@@ -75,6 +75,10 @@ def run_pipeline(file_path: str, database_url: str, output_dir: str, report_dir:
             col: {str(k): float(v) for k, v in vals.items()}
             for col, vals in rfm_with_cluster.groupby("Cluster")[["Recency", "Frequency", "Monetary"]].mean().to_dict().items()
         },
+        "kmeans_probe_predictions": kmeans_probe_predictions,
+        "xgb_holdout_examples": xgb_holdout_examples,
+        "top_rules_examples": top_rules_examples,
+        "customer_recommendation_example": customer_recommendation_example,
     }
     write_report_assets(report_dir, summary, logger)
 
