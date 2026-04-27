@@ -451,7 +451,7 @@ def ai_customer_tab():
     purchased_items = fetch_customer_items(selected_id)
     recommendations = recommend_items(purchased_items, rules, top_n=5)
 
-    cluster_labels = {0: "At Risk", 1: "Loyal", 2: "Champions", 3: "New"}
+    cluster_labels = {0: "Low Value", 1: "At Risk", 2: "Champions", 3: "Loyal"}
     cluster_name = cluster_labels.get(predicted_cluster, f"Segment {predicted_cluster}")
 
     st.markdown(f"**Customer Profile: {int(selected_id)}**")
