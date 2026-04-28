@@ -560,10 +560,10 @@ Lift tối đa = 28.6284
     \item Các probe profile mới được dùng để kiểm tra khả năng gán cụm của mô hình trước khi áp dụng trong dashboard.
     \item Có thể diễn giải 4 nhóm khách hàng theo hành vi:
     \begin{itemize}
-    \item \textbf{Cluster 0 - Low Value:} Recency trung bình (43.7 ngày), Frequency thấp (3.68 lần), Monetary thấp (1.353 VNĐ).
-    \item \textbf{Cluster 1 - At Risk:} Recency rất cao (248.1 ngày), Frequency rất thấp (1.55 lần), Monetary rất thấp (479 VNĐ).
-    \item \textbf{Cluster 2 - Champions:} Recency rất thấp (7.4 ngày), Frequency cực cao (82.5 lần), Monetary cực cao (127.188 VNĐ).
-    \item \textbf{Cluster 3 - Loyal / Potential:} Recency thấp (15.5 ngày), Frequency cao (22.3 lần), Monetary cao (12.691 VNĐ).
+    \item \textbf{Cluster 0 - Low Value:} Recency trung bình (43.7 ngày), Frequency thấp (3.68 lần), Monetary thấp (1.353).
+    \item \textbf{Cluster 1 - At Risk:} Recency rất cao (248.1 ngày), Frequency rất thấp (1.55 lần), Monetary rất thấp (479).
+    \item \textbf{Cluster 2 - Champions:} Recency rất thấp (7.4 ngày), Frequency cực cao (82.5 lần), Monetary cực cao (127.188).
+    \item \textbf{Cluster 3 - Loyal / Potential:} Recency thấp (15.5 ngày), Frequency cao (22.3 lần), Monetary cao (12.691).
 \end{itemize}
 \end{itemize}
 
@@ -613,7 +613,7 @@ Low Value & 5.00 & 9.00 & 3640.84 & 0 \\
     \item 5 dòng holdout test được ghi nhận để kiểm tra model trên dữ liệu chưa thấy trong quá trình huấn luyện.
 \end{itemize}
 
-Dòng đầu tiên trong bảng Test cho thấy một trường hợp dự đoán bị lỗi lớn: khách hàng có Recency 15 ngày, Frequency 3 lần, Monetary 855, được dự đoán chi tiêu tương lai là 553.38 VNĐ trong khi thực tế là 1763.23, dẫn đến sai số -1209.85. Điều này có thể do khách hàng này có hành vi mua hàng không ổn định hoặc có một giao dịch lớn sau kỳ dự báo, làm cho mô hình không dự đoán chính xác. Tuy nhiên, các dòng khác cho thấy mô hình có khả năng dự đoán tốt hơn với sai số nhỏ hơn nhiều.
+Dòng đầu tiên trong bảng Test cho thấy một trường hợp dự đoán bị lỗi lớn: khách hàng có Recency 15 ngày, Frequency 3 lần, Monetary 855, được dự đoán chi tiêu tương lai là 553.38 trong khi thực tế là 1763.23, dẫn đến sai số -1209.85. Điều này có thể do khách hàng này có hành vi mua hàng không ổn định hoặc có một giao dịch lớn sau kỳ dự báo, làm cho mô hình không dự đoán chính xác. Tuy nhiên, các dòng khác cho thấy mô hình có khả năng dự đoán tốt hơn với sai số nhỏ hơn nhiều.
 
 \begin{table}[H]
 \centering

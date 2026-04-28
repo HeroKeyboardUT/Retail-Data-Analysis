@@ -1,0 +1,108 @@
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\beamer@sectionpages {1}{2}}
+\headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\sectionentry {1}{Giới thiệu đề tài}{3}{Giới thiệu đề tài}{0}}
+\headcommand {\slideentry {1}{0}{1}{3/3}{}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\slideentry {1}{0}{2}{4/4}{}{0}}
+\headcommand {\beamer@framepages {4}{4}}
+\headcommand {\slideentry {1}{0}{3}{5/5}{}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\slideentry {1}{0}{4}{6/6}{}{0}}
+\headcommand {\beamer@framepages {6}{6}}
+\headcommand {\beamer@sectionpages {3}{6}}
+\headcommand {\beamer@subsectionpages {3}{6}}
+\headcommand {\sectionentry {2}{Data Preprocessing}{7}{Data Preprocessing}{0}}
+\headcommand {\slideentry {2}{0}{1}{7/7}{}{0}}
+\headcommand {\beamer@framepages {7}{7}}
+\headcommand {\slideentry {2}{0}{2}{8/8}{}{0}}
+\headcommand {\beamer@framepages {8}{8}}
+\headcommand {\slideentry {2}{0}{3}{9/9}{}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\beamer@sectionpages {7}{9}}
+\headcommand {\beamer@subsectionpages {7}{9}}
+\headcommand {\sectionentry {3}{Kiến trúc hệ thống}{10}{Kiến trúc hệ thống}{0}}
+\headcommand {\slideentry {3}{0}{1}{10/10}{}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\slideentry {3}{0}{2}{11/11}{}{0}}
+\headcommand {\beamer@framepages {11}{11}}
+\headcommand {\slideentry {3}{0}{3}{12/12}{}{0}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\beamer@sectionpages {10}{12}}
+\headcommand {\beamer@subsectionpages {10}{12}}
+\headcommand {\sectionentry {4}{K-Means Clustering}{13}{K-Means Clustering}{0}}
+\headcommand {\slideentry {4}{0}{1}{13/13}{}{0}}
+\headcommand {\beamer@framepages {13}{13}}
+\headcommand {\slideentry {4}{0}{2}{14/14}{}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\slideentry {4}{0}{3}{15/15}{}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\beamer@sectionpages {13}{15}}
+\headcommand {\beamer@subsectionpages {13}{15}}
+\headcommand {\sectionentry {5}{XGBoost --- Dự đoán CLV}{16}{XGBoost --- Dự đoán CLV}{0}}
+\headcommand {\slideentry {5}{0}{1}{16/16}{}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\slideentry {5}{0}{2}{17/17}{}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\slideentry {5}{0}{3}{18/18}{}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\beamer@sectionpages {16}{18}}
+\headcommand {\beamer@subsectionpages {16}{18}}
+\headcommand {\sectionentry {6}{FP-Growth --- Luật kết hợp}{19}{FP-Growth --- Luật kết hợp}{0}}
+\headcommand {\slideentry {6}{0}{1}{19/19}{}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {6}{0}{2}{20/20}{}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\slideentry {6}{0}{3}{21/21}{}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\slideentry {6}{0}{4}{22/22}{}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\beamer@sectionpages {19}{22}}
+\headcommand {\beamer@subsectionpages {19}{22}}
+\headcommand {\sectionentry {7}{Kết quả thực nghiệm}{23}{Kết quả thực nghiệm}{0}}
+\headcommand {\slideentry {7}{0}{1}{23/23}{}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\slideentry {7}{0}{2}{24/24}{}{0}}
+\headcommand {\beamer@framepages {24}{24}}
+\headcommand {\slideentry {7}{0}{3}{25/25}{}{0}}
+\headcommand {\beamer@framepages {25}{25}}
+\headcommand {\slideentry {7}{0}{4}{26/26}{}{0}}
+\headcommand {\beamer@framepages {26}{26}}
+\headcommand {\slideentry {7}{0}{5}{27/27}{}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\slideentry {7}{0}{6}{28/28}{}{0}}
+\headcommand {\beamer@framepages {28}{28}}
+\headcommand {\slideentry {7}{0}{7}{29/29}{}{0}}
+\headcommand {\beamer@framepages {29}{29}}
+\headcommand {\slideentry {7}{0}{8}{30/30}{}{0}}
+\headcommand {\beamer@framepages {30}{30}}
+\headcommand {\slideentry {7}{0}{9}{31/31}{}{0}}
+\headcommand {\beamer@framepages {31}{31}}
+\headcommand {\slideentry {7}{0}{10}{32/32}{}{0}}
+\headcommand {\beamer@framepages {32}{32}}
+\headcommand {\beamer@sectionpages {23}{32}}
+\headcommand {\beamer@subsectionpages {23}{32}}
+\headcommand {\sectionentry {8}{Ứng dụng \& Dashboard}{33}{Ứng dụng \& Dashboard}{0}}
+\headcommand {\slideentry {8}{0}{1}{33/33}{}{0}}
+\headcommand {\beamer@framepages {33}{33}}
+\headcommand {\slideentry {8}{0}{2}{34/34}{}{0}}
+\headcommand {\beamer@framepages {34}{34}}
+\headcommand {\beamer@sectionpages {33}{34}}
+\headcommand {\beamer@subsectionpages {33}{34}}
+\headcommand {\sectionentry {9}{Kết luận}{35}{Kết luận}{0}}
+\headcommand {\slideentry {9}{0}{1}{35/35}{}{0}}
+\headcommand {\beamer@framepages {35}{35}}
+\headcommand {\slideentry {9}{0}{2}{36/36}{}{0}}
+\headcommand {\beamer@framepages {36}{36}}
+\headcommand {\slideentry {9}{0}{3}{37/37}{}{0}}
+\headcommand {\beamer@framepages {37}{37}}
+\headcommand {\slideentry {9}{0}{4}{38/38}{}{0}}
+\headcommand {\beamer@framepages {38}{38}}
+\headcommand {\beamer@partpages {1}{38}}
+\headcommand {\beamer@subsectionpages {35}{38}}
+\headcommand {\beamer@sectionpages {35}{38}}
+\headcommand {\beamer@documentpages {38}}
+\headcommand {\gdef \inserttotalframenumber {28}}

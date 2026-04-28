@@ -1,0 +1,27 @@
+\frametitle{Trực quan: FP-Growth Top Rules \& Customer Recommendation}
+
+    \textbf{Customer Recommendation Example}
+
+    \vspace{-0.15cm}
+    \begin{center}
+        \scriptsize
+        \setlength{\tabcolsep}{4pt}
+        \renewcommand{\arraystretch}{1.15}
+        \begin{tabular}{>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{5.2cm}}
+        \toprule
+        \textbf{Field} & \textbf{Value} \\
+        \midrule
+        CustomerID & 12886 \\
+        Purchased Items & 12 PENCILS TUBE WOODLAND, 3 HOOK PHOTO SHELF, BISCUIT CUTTERS SET, [\ldots +7 more] \\
+        Matched Rules & PINK \& ROSES REGENCY TEA \\
+        \textbf{Recommended} & \textbf{GREEN REGENCY TEA} \\
+        Support & 0.0205 \\
+        Confidence & 0.8903 \\
+        Lift & 24.2167 \\
+        \bottomrule
+        \end{tabular}
+    \end{center}
+
+    \vspace{0.1cm}
+    \small
+    \textbf{Nhận xét:} KH 12886 đã mua PINK + ROSES $\Rightarrow$ gợi ý GREEN với confidence=89\%.
